@@ -4,7 +4,7 @@ namespace AnimalsApp.Models
 {
     public class Panther : LivingBeing
     {
-        public event Action OnRoar;
+        public event Action? OnRoar;
 
         public Panther(double maxSpeed) : base(maxSpeed) { }
 

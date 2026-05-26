@@ -4,7 +4,7 @@ namespace AnimalsApp.Models
 {
     public class Dog : LivingBeing
     {
-        public event Action OnBark;
+        public event Action? OnBark;
 
         public Dog(double maxSpeed) : base(maxSpeed) { }
 

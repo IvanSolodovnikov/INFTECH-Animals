@@ -1,6 +1,6 @@
 namespace AnimalsApp.Models
 {
-    public abstract class LivingBeing
+    public abstract class LivingBeing : IAnimal
     {
         public double Speed { get; protected set; }
         protected double MaxSpeed { get; set; }
@@ -9,6 +9,15 @@ namespace AnimalsApp.Models
         {
             MaxSpeed = maxSpeed;
             Speed = 0;
+        }
+
+        public string SetMaxSpeed(double maxSpeed)
+        {
+            MaxSpeed = maxSpeed;
+            if (Speed > MaxSpeed)
+                Speed = MaxSpeed;
+
+            return $"Максимальная скорость изменена: {MaxSpeed}";
         }
 
         public abstract void Move();
