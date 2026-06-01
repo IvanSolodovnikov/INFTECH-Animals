@@ -54,7 +54,15 @@
                 <ScrollViewer Grid.Row="1">
                     <StackPanel>
                         <GroupBox Header="Параметры конструктора" Margin="0,0,0,10">
-                            <StackPanel x:Name="ConstructorPanel" Margin="5"/>
+                            <StackPanel Margin="5">
+                                <StackPanel x:Name="ConstructorPanel"/>
+                                <Button Content="Создать объект"
+                                        Width="130"
+                                        Height="28"
+                                        Margin="0,8,0,0"
+                                        HorizontalAlignment="Left"
+                                        Click="CreateObject_Click"/>
+                            </StackPanel>
                         </GroupBox>
 
                         <GroupBox Header="Параметры метода" Margin="0,0,0,10">

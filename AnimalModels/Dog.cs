@@ -22,9 +22,10 @@ namespace AnimalModels
                 Speed = 0;
         }
 
-        public void Bark()
+        public string Bark()
         {
             OnBark?.Invoke();
+            return "Собака: гав!";
         }
     }
 }

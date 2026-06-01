@@ -22,9 +22,10 @@ namespace AnimalModels
                 Speed = 0;
         }
 
-        public void Roar()
+        public string Roar()
         {
             OnRoar?.Invoke();
+            return "Пантера: ррр!";
         }
 
         public string ClimbTree()

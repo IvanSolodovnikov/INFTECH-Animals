@@ -115,6 +115,26 @@ namespace AnimalsApp.Views
                 AddParameterInputs(MethodPanel, _methodTextBoxes, method.GetParameters());
         }
 
+        private void CreateObject_Click(object sender, RoutedEventArgs e)
+        {
+            Type? type = GetSelectedType();
+            if (type == null)
+            {
+                ResultTextBox.Text = "Выберите класс";
+                return;
+            }
+
+            try
+            {
+                object animal = CreateObject(type);
+                ResultTextBox.Text = $"Объект создан. Скорость: {GetSpeed(animal)}";
+            }
+            catch (Exception ex)
+            {
+                ResultTextBox.Text = ex.InnerException?.Message ?? ex.Message;
+            }
+        }
+
         private void RunMethod_Click(object sender, RoutedEventArgs e)
         {
             Type? type = GetSelectedType();
@@ -128,28 +148,8 @@ namespace AnimalsApp.Views
 
             try
             {
-                ConstructorInfo? constructor = GetConstructor(type);
-                if (constructor == null)
-                {
-                    ResultTextBox.Text = "У класса нет публичного конструктора";
-                    return;
-                }
-
                 if (!_animals.ContainsKey(type))
-                {
-                    object?[] constructorParameters = GetValues(
-                        constructor.GetParameters(),
-                        _constructorTextBoxes);
-
-                    object animal = constructor.Invoke(constructorParameters);
-                    _animals.Add(type, animal);
-
-                    ConstructorPanel.Children.Clear();
-                    ConstructorPanel.Children.Add(new TextBlock
-                    {
-                        Text = "Объект уже создан. Его данные сохраняются."
-                    });
-                }
+                    CreateObject(type);
 
                 object?[] methodParameters = GetValues(
                     method.GetParameters(),
@@ -177,6 +177,31 @@ namespace AnimalsApp.Views
         private ConstructorInfo? GetConstructor(Type type)
         {
             return type.GetConstructors().FirstOrDefault();
+        }
+
+        private object CreateObject(Type type)
+        {
+            if (_animals.ContainsKey(type))
+                return _animals[type];
+
+            ConstructorInfo? constructor = GetConstructor(type);
+            if (constructor == null)
+                throw new Exception("У класса нет публичного конструктора");
+
+            object?[] constructorParameters = GetValues(
+                constructor.GetParameters(),
+                _constructorTextBoxes);
+
+            object animal = constructor.Invoke(constructorParameters);
+            _animals.Add(type, animal);
+
+            ConstructorPanel.Children.Clear();
+            ConstructorPanel.Children.Add(new TextBlock
+            {
+                Text = "Объект уже создан. Его данные сохраняются."
+            });
+
+            return animal;
         }
 
         private MethodInfo? GetSelectedMethod()
@@ -270,11 +295,16 @@ namespace AnimalsApp.Views
             if (result != null)
                 return result.ToString() ?? "";
 
+            return $"Метод выполнен. Скорость: {GetSpeed(animal)}";
+        }
+
+        private object? GetSpeed(object animal)
+        {
             PropertyInfo? speedProperty = animal.GetType().GetProperty("Speed");
             if (speedProperty != null)
-                return $"Метод выполнен. Скорость: {speedProperty.GetValue(animal)}";
+                return speedProperty.GetValue(animal);
 
-            return "Метод выполнен";
+            return "";
         }
     }
 }
