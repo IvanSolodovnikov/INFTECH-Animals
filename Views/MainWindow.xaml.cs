@@ -6,7 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
-using AnimalsApp.Models;
+using AnimalModels;
 
 namespace AnimalsApp.Views
 {
@@ -27,7 +27,7 @@ namespace AnimalsApp.Views
         {
             return Path.Combine(
                 AppDomain.CurrentDomain.BaseDirectory,
-                "Animals.dll");
+                "AnimalModels.dll");
         }
 
         private void LoadModels_Click(object sender, RoutedEventArgs e)
@@ -55,7 +55,6 @@ namespace AnimalsApp.Views
 
                 List<Type> types = assembly.GetTypes()
                     .Where(t => t.IsClass && !t.IsAbstract)
-                    .Where(t => t.Namespace == "AnimalsApp.Models")
                     .Where(t => animalInterface.IsAssignableFrom(t))
                     .ToList();
 

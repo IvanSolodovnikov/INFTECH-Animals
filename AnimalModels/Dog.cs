@@ -1,6 +1,6 @@
 using System;
 
-namespace AnimalsApp.Models
+namespace AnimalModels
 {
     public class Dog : LivingBeing
     {

@@ -11,7 +11,7 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0" Margin="0,0,0,10">
-            <TextBlock Text="Путь к сборке, в которой находятся классы из Models:"/>
+            <TextBlock Text="Путь к библиотеке классов:"/>
             <DockPanel Margin="0,5,0,0">
                 <Button Content="Найти животных"
                         DockPanel.Dock="Right"

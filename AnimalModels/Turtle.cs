@@ -1,4 +1,4 @@
-namespace AnimalsApp.Models
+namespace AnimalModels
 {
     public class Turtle : LivingBeing
     {
