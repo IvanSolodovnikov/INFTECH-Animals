@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="AnimalModels\**" />
+    <EmbeddedResource Remove="AnimalModels\**" />
+    <None Remove="AnimalModels\**" />
+    <Page Remove="AnimalModels\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="AnimalModels\AnimalModels.csproj" />
+  </ItemGroup>
+
+</Project>
